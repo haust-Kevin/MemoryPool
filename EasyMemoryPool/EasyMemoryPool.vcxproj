@@ -147,7 +147,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alloctor.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryAlloc.cpp" />
+    <ClCompile Include="MemoryBlock.cpp" />
+    <ClCompile Include="MemoryMgr.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Alloctor.h" />
+    <ClInclude Include="MemoryAlloc.h" />
+    <ClInclude Include="MemoryBlock.h" />
+    <ClInclude Include="MemoryMgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
