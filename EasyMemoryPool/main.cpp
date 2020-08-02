@@ -5,7 +5,6 @@
 using namespace std;
 int main(int argc, char* argv[])
 {
-	char* data = new char[128];
-	
+	printf("我在哈哈哈哈哈哈哈哈不含糊湖湖滨");
 	return 0;
 }

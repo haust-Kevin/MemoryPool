@@ -1,4 +1,4 @@
-#ifndef _MEMORYMGR_H_
+﻿#ifndef _MEMORYMGR_H_
 #define _MEMORYMGR_H_
 
 class MemoryMgr

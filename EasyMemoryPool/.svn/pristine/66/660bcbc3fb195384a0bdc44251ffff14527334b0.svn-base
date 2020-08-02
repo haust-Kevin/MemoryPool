@@ -1,4 +1,4 @@
-ï»¿#include "MemoryAlloc.h"
+#include "MemoryAlloc.h"
 #include <cstdlib>
 #include <exception>
 #include "MemoryBlock.h"
@@ -27,10 +27,10 @@ void MemoryAlloc::init()
 {
 	if (pMemory != nullptr)
 	{
-		throw std::exception("å†…å­˜æ± å·²ç»åˆå§‹åŒ–\n");
+		throw std::exception("ÄÚ´æ³ØÒÑ¾­³õÊ¼»¯\n");
 	}
-	size_t memorySize = blockSize * blockNum; // è®¡ç®—å†…å­˜æ± å¤§å°
-	pMemory = malloc(memorySize); // å‘ç³»ç»Ÿç”³è¯·å†…å­˜
+	size_t memorySize = blockSize * blockNum; // ¼ÆËãÄÚ´æ³Ø´óĞ¡
+	pMemory = malloc(memorySize); // ÏòÏµÍ³ÉêÇëÄÚ´æ
  	pHeader = static_cast<MemoryBlock*> (pMemory);
 // 	pHeader->inPool = true;
 // 	pHeader->nId = 0;

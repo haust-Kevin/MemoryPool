@@ -1,4 +1,4 @@
-#ifndef _MEMORYBLOCK_H_
+ï»¿#ifndef _MEMORYBLOCK_H_
 #define _MEMORYBLOCK_H_
 class MemoryAlloc;
 
@@ -9,12 +9,12 @@ public:
 	MemoryBlock();
 	~MemoryBlock();
 private:
-	int nId; // ±àºÅ
-	size_t refCount; // ÒıÓÃ´ÎÊı
-	MemoryAlloc* pAlloc; // ËùÊôÄÚ´æ³Ø
-	MemoryBlock* pNext; // ÏÂÒ»¸ö¿ÉÓÃÄÚ´æ¿é
-	bool inPool; // ÊÇ·ñÔÚÄÚ´æ³ØÖĞ
-//	char reserve[7]; // ×Ö½Ú¶ÔÆë£¬Ô¤ÁôÎ»ÖÃ
+	int nId; // ç¼–å·
+	size_t refCount; // å¼•ç”¨æ¬¡æ•°
+	MemoryAlloc* pAlloc; // æ‰€å±å†…å­˜æ± 
+	MemoryBlock* pNext; // ä¸‹ä¸€ä¸ªå¯ç”¨å†…å­˜å—
+	bool inPool; // æ˜¯å¦åœ¨å†…å­˜æ± ä¸­
+//	char reserve[7]; // å­—èŠ‚å¯¹é½ï¼Œé¢„ç•™ä½ç½®
 };
 
 

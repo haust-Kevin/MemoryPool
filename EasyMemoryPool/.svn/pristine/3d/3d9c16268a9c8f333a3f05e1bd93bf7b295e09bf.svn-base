@@ -11,10 +11,10 @@ public:
 	void free(void* p);
 	void init();
 private:
-	void* pMemory; // 鍐呭瓨姹犲湴鍧�
-	MemoryBlock* pHeader; // 鍙敤鐨勫唴瀛樺潡鍦板潃
-	size_t blockSize; // 鍐呭瓨鍗曞厓澶у皬
-	size_t blockNum; // 鍐呭瓨鍗曞厓鏁伴噺
+	void* pMemory; // 内存池地址
+	MemoryBlock* pHeader; // 可用的内存块地址
+	size_t blockSize; // 内存单元大小
+	size_t blockNum; // 内存单元数量
 };
 
 

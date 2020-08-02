@@ -1,4 +1,4 @@
-#include "Alloctor.h"
+﻿#include "Alloctor.h"
 #include <cstdlib>
 
 #include "MemoryMgr.h"

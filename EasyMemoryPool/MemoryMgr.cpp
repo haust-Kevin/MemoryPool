@@ -1,4 +1,4 @@
-#include "MemoryMgr.h"
+﻿#include "MemoryMgr.h"
 #include <cstdlib>
 
 MemoryMgr::MemoryMgr()
