@@ -11,8 +11,7 @@ public:
 	void free(void* p);
 	void init();
 private:
-	void* pMemory; // 内存池地址
-	MemoryBlock* pHeader; // 可用的内存块地址
+	MemoryBlock* pMemory; // 内存池地址
 	size_t blockSize; // 内存单元大小
 	size_t blockNum; // 内存单元数量
 };
