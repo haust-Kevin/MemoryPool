@@ -1,0 +1,23 @@
+#ifndef _MEMORYALLOC_H_
+#define _MEMORYALLOC_H_
+struct MemoryBlock;
+
+class MemoryAlloc
+{
+public:
+	MemoryAlloc(size_t _BlockSize, size_t _BlockNum);
+	~MemoryAlloc();
+	void* alloc(size_t size);
+	void free(void* p);
+	void init();
+private:
+	void* pMemory; // 内存池地址
+	MemoryBlock* pHeader; // 可用的内存块地址
+	size_t blockSize; // 内存单元大小
+	size_t blockNum; // 内存单元数量
+};
+
+
+
+#endif // !_MEMORYALLOC_H_
+

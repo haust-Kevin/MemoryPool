@@ -4,15 +4,9 @@
 #include <cassert>
 static size_t log2_to_int(size_t digit)
 {
-// 	return static_cast<size_t>(
-// 		log2l(static_cast<long double>(digit))
-// 		);
-	int result = 0;
-	while (digit >>= 2)
-	{
-		result++;
-	}
-	return result;
+	return static_cast<size_t>(
+		log2l(static_cast<long double>(digit))
+		);
 }
 
 MemoryMgr* MemoryMgr::instance = nullptr;
@@ -57,7 +51,7 @@ void* MemoryMgr::alloc(size_t size)
 		pResult->refCount = 1;
 		pResult->pAlloc = nullptr;
 		pResult->pNext = nullptr;
-		return  static_cast<void*>(reinterpret_cast<char*> (pResult) + sizeof(MemoryBlock));
+		return pResult;
 	}
 }
 

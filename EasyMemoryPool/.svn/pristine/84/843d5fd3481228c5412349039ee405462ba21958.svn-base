@@ -30,6 +30,10 @@ public:
 	static MemoryMgr* getInstance();
 	size_t getPoolIndex(size_t size);
 private:
+//	MemoryAllocator< 64, POOL_BLOCKS_NUM> block_64;
+//	MemoryAllocator<128, POOL_BLOCKS_NUM> block_128;
+//	MemoryAllocator<256, POOL_BLOCKS_NUM> block_256;
+//	MemoryAllocator<512, POOL_BLOCKS_NUM> block_512;
 	size_t maxBlockSize;
 	size_t minBlockSize;
 	size_t poolBlocksNum;
