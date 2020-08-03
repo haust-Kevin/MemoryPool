@@ -6,6 +6,7 @@ struct MemoryBlock
 {
 	MemoryBlock();
 	~MemoryBlock();
+	int nId; // 编号
 	size_t refCount; // 引用次数
 	MemoryAlloc* pAlloc; // 所属内存池
 	MemoryBlock* pNext; // 下一个可用内存块

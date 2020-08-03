@@ -1,6 +1,6 @@
 #ifndef _MEMORYALLOC_H_
 #define _MEMORYALLOC_H_
-struct MemoryBlock;
+class MemoryBlock;
 
 class MemoryAlloc
 {
