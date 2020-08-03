@@ -5,7 +5,7 @@ struct MemoryBlock;
 class MemoryAlloc
 {
 public:
-	MemoryAlloc();
+	MemoryAlloc(size_t _BlockSize, size_t _BlockNum);
 	~MemoryAlloc();
 	void* alloc(size_t size);
 	void free(void* p);

@@ -4,9 +4,14 @@
 #include "MemoryBlock.h"
 
 
-MemoryAlloc::MemoryAlloc()
+MemoryAlloc::MemoryAlloc(size_t _BlockSize, size_t _BlockNum)
 	:pMemory(nullptr), pHeader(nullptr), blockNum(0), blockSize(0)
 {
+	constexpr size_t BYTE_ALIGN_SIZE = sizeof(void*);
+    // 实现字节对齐
+	blockSize = _BlockSize * (_BlockSize / BYTE_ALIGN_SIZE)
+		+ (_BlockSize % BYTE_ALIGN_SIZE ? BYTE_ALIGN_SIZE : 0);
+	blockNum = _BlockNum;
 }
 
 MemoryAlloc::~MemoryAlloc()
@@ -47,45 +52,33 @@ void* MemoryAlloc::alloc(size_t size)
 
 void MemoryAlloc::free(void* p)
 {
-	MemoryBlock* pBlock = reinterpret_cast<MemoryBlock*>(
-		static_cast<char*>(p) + sizeof(MemoryBlock)
+	MemoryBlock* pFree = reinterpret_cast<MemoryBlock*>(
+		static_cast<char*>(p) - sizeof(MemoryBlock)
 		);
-	if (--pBlock->refCount != 0)
-	{
-		// 后期可能需要共享内存，另做处理
-		throw std::exception("被多次引用");
-	}
-	if (pBlock->inPool)
-	{
-		pBlock->pNext = pHeader;
-		pHeader = pBlock;
-	}
-	else
-	{
-		::free(pBlock);
-	}
+		pFree->pNext = pHeader;
+		pHeader = pFree;
 }
 
 void MemoryAlloc::init()
 {
-	if (pMemory != nullptr)
-	{
-		throw std::exception("内存池已经初始化\n");
-	}
-	size_t memorySize = blockSize * blockNum; // 计算内存池大小
+	size_t memorySize = (blockSize + sizeof(MemoryBlock)) * blockNum; // 计算内存池大小
 	pMemory = malloc(memorySize); // 向系统申请内存
 	pHeader = static_cast<MemoryBlock*> (pMemory);
 
-	MemoryBlock* pLast = pHeader;
-	for (size_t i = 1; i < blockNum; i++)
+	MemoryBlock* pLast = nullptr;
+
+	for (size_t i = 0; i < blockNum; i++)
 	{
 		MemoryBlock* pTemp = reinterpret_cast<MemoryBlock*> (
-			static_cast<char*>(pMemory) + (i * blockSize)
+			static_cast<char*>(pMemory) + i * (blockSize + sizeof(MemoryBlock))
 			);
 		pTemp->inPool = true;
 		pTemp->refCount = 0;
 		pTemp->pAlloc = this;
-		pLast->pNext = pTemp;
+		if (pLast)
+		{
+			pLast->pNext = pTemp;
+		}
 		pLast = pTemp;
 	}
 	pLast->pNext = nullptr;
