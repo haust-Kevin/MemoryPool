@@ -33,7 +33,7 @@ private:
 	size_t maxBlockSize;
 	size_t minBlockSize;
 	size_t poolBlocksNum;
-	std::vector<MemoryAlloc*> pools;
+	std::vector<MemoryAlloc> pools;
 	static MemoryMgr* instance;
 };
 

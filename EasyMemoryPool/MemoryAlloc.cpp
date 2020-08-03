@@ -2,16 +2,15 @@
 #include <cstdlib>
 #include <exception>
 #include "MemoryBlock.h"
-
+#include <iostream>
 
 MemoryAlloc::MemoryAlloc(size_t _BlockSize, size_t _BlockNum)
-	:pMemory(nullptr), pHeader(nullptr), blockNum(0), blockSize(0)
+	:pMemory(nullptr), pHeader(nullptr), blockNum(_BlockNum), blockSize(0)
 {
 	constexpr size_t BYTE_ALIGN_SIZE = sizeof(void*);
     // 实现字节对齐
-	blockSize = _BlockSize * (_BlockSize / BYTE_ALIGN_SIZE)
+	blockSize = BYTE_ALIGN_SIZE * (_BlockSize / BYTE_ALIGN_SIZE)
 		+ (_BlockSize % BYTE_ALIGN_SIZE ? BYTE_ALIGN_SIZE : 0);
-	blockNum = _BlockNum;
 }
 
 MemoryAlloc::~MemoryAlloc()
@@ -19,6 +18,7 @@ MemoryAlloc::~MemoryAlloc()
 	if (pMemory != nullptr)
 	{
 		::free(pMemory);
+		pMemory = nullptr;
 	}
 }
 
@@ -36,7 +36,7 @@ void* MemoryAlloc::alloc(size_t size)
 			);
 		pResult->inPool = false;
 		pResult->refCount = 1;
-		pResult->pAlloc = this;
+		pResult->pAlloc = nullptr;
 		pResult->pNext = nullptr;
 	}
 	else
@@ -55,8 +55,8 @@ void MemoryAlloc::free(void* p)
 	MemoryBlock* pFree = reinterpret_cast<MemoryBlock*>(
 		static_cast<char*>(p) - sizeof(MemoryBlock)
 		);
-		pFree->pNext = pHeader;
-		pHeader = pFree;
+	pFree->pNext = pHeader;
+	pHeader = pFree;
 }
 
 void MemoryAlloc::init()
