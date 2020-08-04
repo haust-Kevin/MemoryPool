@@ -4,17 +4,17 @@
 #include <vector>
 // 每个内存池的内存块数量
 #ifndef POOL_BLOCKS_NUM
-#define POOL_BLOCKS_NUM 1000ULL
+#define POOL_BLOCKS_NUM 10U
 #endif
 
 // 所需最大的内存块的最小大小
 #ifndef MAX_BLOCK_SIZE
-#define MAX_BLOCK_SIZE 1024ULL
+#define MAX_BLOCK_SIZE 1024U
 #endif
 
 // 最小的内存块的大小
 #ifndef MIN_BLOCK_SIZE
-#define MIN_BLOCK_SIZE 64ULL
+#define MIN_BLOCK_SIZE 64U
 #endif
 
 class MemoryMgr

@@ -4,7 +4,7 @@
 #include <vector>
 // 每个内存池的内存块数量
 #ifndef POOL_BLOCKS_NUM
-#define POOL_BLOCKS_NUM 1000ULL
+#define POOL_BLOCKS_NUM 10ULL
 #endif
 
 // 所需最大的内存块的最小大小

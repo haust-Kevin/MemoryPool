@@ -1,7 +1,7 @@
-#include "MemoryBlock.h"
 #include "MemoryAlloc.h"
 #include <cstdlib>
 #include <exception>
+#include "MemoryBlock.h"
 #include <iostream>
 
 MemoryAlloc::MemoryAlloc(size_t _BlockSize, size_t _BlockNum)
