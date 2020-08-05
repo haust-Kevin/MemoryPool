@@ -1,37 +1,93 @@
 
 #include "ALLOC.H"
-#include <cstdlib>
+
+#include <new>
+#include <cstring>
+
+#pragma  warning( disable: 26451 )
+
 using namespace Kevin;
 
-Alloc::Node* Alloc::freeList[__NFREELISTS] = {
-	nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,
-	nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,nullptr,
-};
-
+Alloc::Node* Alloc::freeList[__NFREELISTS] = { nullptr };
 char* Alloc::pStart = nullptr;
 char* Alloc::pEnd = nullptr;
 size_t Alloc::heapTotalSize = 0;
 
+
 void* Alloc::refill(size_t n)
 {
-	return nullptr;
+	size_t num = __BLOCK_NUM;
+	char* chunk = static_cast<char*>(chunkAlloc(n, &num));
+	if (num == 1) {
+		return chunk;
+	}
+	Node** myFreeList = freeList + FREELIST_INDEX(n);
+	*myFreeList = reinterpret_cast<Node*>(chunk + n);
+
+	for (int i = 1; i < num - 1; i++) {
+		reinterpret_cast<Node*>(chunk + n * i)->next
+			= reinterpret_cast<Node*>(chunk + n * (i + 1));
+	}
+	reinterpret_cast<Node*>(chunk + n * (num - 1))->next = nullptr;
+	return chunk;
 }
 
-void* Alloc::chunkAlloc(size_t size, int& nObjs)
+void* Alloc::chunkAlloc(size_t size, size_t* pNum)
 {
-	return nullptr;
-}
+	void* result = static_cast<void*>(pStart);
 
+	size_t totalBytes = *pNum * size;
+	size_t bytesLeft = pEnd - pStart;
+
+	if (bytesLeft >= totalBytes) {
+		pStart += totalBytes;
+		return result;
+	}
+	else if (bytesLeft >= size) {
+		*pNum = bytesLeft / size;
+		totalBytes = *pNum * size;
+		pStart += size * totalBytes;
+		return result;
+	}
+	else {
+		size_t bytesRequire = 2 * totalBytes + ROUND_UP(heapTotalSize >> 4);
+		if (bytesLeft > 0) {
+			Node** myFreeList = freeList + FREELIST_INDEX(bytesLeft);
+			reinterpret_cast<Node*>(pStart)->next = *myFreeList;
+			*myFreeList = reinterpret_cast<Node*>(pStart);
+		}
+
+		try {
+			pStart = new char[bytesRequire];
+		}
+		catch (std::bad_alloc) {
+			for (size_t offset = FREELIST_INDEX(size); offset <= __MAX_BYTES; offset++) {
+				Node** myFreeList = freeList + offset;
+				Node* p = *myFreeList;
+				if (p != nullptr) {
+					*myFreeList = p->next;
+					pStart = reinterpret_cast<char*>(p);
+					pEnd = pStart + (offset + 1) * __ALIGN;
+					return  chunkAlloc(size, pNum);
+				}
+			}
+		}
+		heapTotalSize += bytesRequire;
+		pEnd = pStart + bytesRequire;
+		return chunkAlloc(size, pNum);
+	}
+}
 
 void* Alloc::allocate(size_t size)
 {
 	if (size > __MAX_BYTES) {
-		return  malloc(size);
+		return   static_cast<void*>(new char[size]);
 	}
 	Node** myFreeList = freeList + FREELIST_INDEX(size);
 	Node* result = *myFreeList;
 	if (result == nullptr) {
-		return  refill(ROUND_UP(size));
+		auto r = refill(ROUND_UP(size));
+		return r;
 	}
 	*myFreeList = result->next;
 	return result;
@@ -40,7 +96,7 @@ void* Alloc::allocate(size_t size)
 void Alloc::deallocate(void* p, size_t size)
 {
 	if (size > __MAX_BYTES) {
-		return  free(p);
+		return  delete static_cast<char*>(p);
 	}
 	Node* pFree = static_cast<Node*>(p);
 	Node** myFreeList = freeList + FREELIST_INDEX(size);
@@ -48,7 +104,10 @@ void Alloc::deallocate(void* p, size_t size)
 	*myFreeList = pFree;
 }
 
-void Alloc::reallocate(void* p, size_t oldSize, size_t newSize)
+void* Alloc::reallocate(void* p, size_t oldSize, size_t newSize)
 {
-
+	void* pNew = Alloc::allocate(newSize);
+	memcpy(pNew, p, newSize);
+	Alloc::deallocate(p, oldSize);
+	return pNew;
 }

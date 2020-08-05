@@ -29,5 +29,11 @@
     <ClInclude Include="ALLOC.H">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="KEVIN.H">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MYDEBUG.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -72,15 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(ProjectName)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(ProjectName)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(ProjectName)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(ProjectName)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)$(ProjectName)\temp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,6 +153,8 @@
   <ItemGroup>
     <ClInclude Include="ALLOC.H" />
     <ClInclude Include="ALLOCATOR.HPP" />
+    <ClInclude Include="KEVIN.H" />
+    <ClInclude Include="MYDEBUG.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
