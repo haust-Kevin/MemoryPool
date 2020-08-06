@@ -13,8 +13,6 @@ int main(int argc, char* argv[])
     std::allocator<int> a1;
     Kevin::Allocator<int> a2;
 
-    
-
     int freqency1 = 1000000;
     int freqency2 = 1000000;
 
@@ -66,7 +64,7 @@ int main(int argc, char* argv[])
 // 		}
 
 		/*---------------------------------------------------*
-		 *      0.0404246     0.0417142     0.0394432
+		 *      0.0333378     0.0324148     0.0310159
 		 **/
 // 		for (int i = 0; i < sizeof(p) / sizeof(p[0]); i++) {
 // 			p[i] = a2.allocate(num);
