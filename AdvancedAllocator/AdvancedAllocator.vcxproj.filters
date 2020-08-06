@@ -32,7 +32,7 @@
     <ClInclude Include="KEVIN.H">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="MYDEBUG.h">
+    <ClInclude Include="MYTEST.H">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

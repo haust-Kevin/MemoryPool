@@ -154,7 +154,7 @@
     <ClInclude Include="ALLOC.H" />
     <ClInclude Include="ALLOCATOR.HPP" />
     <ClInclude Include="KEVIN.H" />
-    <ClInclude Include="MYDEBUG.h" />
+    <ClInclude Include="MYTEST.H" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
