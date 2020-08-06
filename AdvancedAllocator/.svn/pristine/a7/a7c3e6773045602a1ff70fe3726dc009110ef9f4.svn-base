@@ -1,6 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <list>
+#include <vector>
 #include <chrono>
 #include "ALLOCATOR.HPP"
 /**
@@ -13,29 +13,29 @@ int main(int argc, char* argv[])
     std::allocator<int> a1;
     Kevin::Allocator<int> a2;
 
-    int freqency1 = 100000;
+    int freqency1 = 1000000;
     int freqency2 = 1000000;
 
     auto start = chrono::high_resolution_clock::now();
     while (freqency1--)
     {
         /*---------------------------------------------------*
-         *      0.73243     0.824995     0.775182
+         *      0.945947     0.986747     0.978179
          **/
-// 		list<int, std::allocator<int>> ivec1;
+// 		vector<int, std::allocator<int>> ivec1;
 //         for (size_t i = 0; i < 100; i++)
 //         {
 //             ivec1.push_back(i);
 //         }
 
         /*---------------------------------------------------*
-         *      0.0627199        0.0609521        0.0586306
+         *      0.682629        0.720053        0.712583
          **/
-		list<int, Kevin::Allocator<int>> ivec2;
-        for (size_t i = 0; i < 100; i++)
-        {
-            ivec2.push_back(i);
-        }
+// 		vector<int, Kevin::Allocator<int>> ivec2;
+//         for (size_t i = 0; i < 100; i++)
+//         {
+//             ivec2.push_back(i);
+//         }
     }
 
 	int* p[10];
