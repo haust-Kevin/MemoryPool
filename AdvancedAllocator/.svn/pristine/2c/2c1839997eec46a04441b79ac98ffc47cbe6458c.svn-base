@@ -24,7 +24,7 @@ void* Alloc::refill(size_t n)
 	Node** myFreeList = freeList + FREELIST_INDEX(n);
 	*myFreeList = reinterpret_cast<Node*>(chunk + n);
 
-	for (size_t i = 1; i < num - 1; i++) {
+	for (int i = 1; i < num - 1; i++) {
 		reinterpret_cast<Node*>(chunk + n * i)->next
 			= reinterpret_cast<Node*>(chunk + n * (i + 1));
 	}
@@ -46,7 +46,7 @@ void* Alloc::chunkAlloc(size_t size, size_t* pNum)
 	else if (bytesLeft >= size) {
 		*pNum = bytesLeft / size;
 		totalBytes = *pNum * size;
-		pStart += totalBytes;
+		pStart += size * totalBytes;
 		return result;
 	}
 	else {
@@ -86,7 +86,8 @@ void* Alloc::allocate(size_t size)
 	Node** myFreeList = freeList + FREELIST_INDEX(size);
 	Node* result = *myFreeList;
 	if (result == nullptr) {
-		return  refill(ROUND_UP(size));
+		auto r = refill(ROUND_UP(size));
+		return r;
 	}
 	*myFreeList = result->next;
 	return result;
