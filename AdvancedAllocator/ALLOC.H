@@ -2,7 +2,8 @@
 #define _ALLOC_H_
 
 #include "KEVIN.H"
-#include "MYTEST.H"
+/*#include "MYTEST.H"*/
+
 _KEVIN_BEGIN
 class Alloc {
 private:
